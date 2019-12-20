@@ -3,17 +3,17 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { ActionType } from "typesafe-actions";
-import rootAction from '../actions';
-import CloudComponent from '../components/Cloud/CloudComponent';
-import { IAppState } from '../reducers';
-import { ITemp } from '../types/CloudTypes';
+import rootAction from '@/actions';
+import CloudComponent from '@/components/Cloud/CloudComponent';
+import { IAppState } from '@/reducers';
+import { ICloudState } from '@/types/CloudTypes';
 
 type RootActions = ActionType<typeof rootAction>;
 interface ICloudProps{
   getThunk: () => void;
   fetchEpicRequest: () => void;
   fetchThunk: () => void;
-  cloudState: ITemp;
+  cloudState: ICloudState;
 }
 
 const CloudPage = (props: ICloudProps) => {
@@ -33,7 +33,7 @@ const mapStateToProps = (state:IAppState) => {
 };
 
 interface IMapDispatchToProps {
-  fetchThunk: (args: ITemp) => void;
+  fetchThunk: (args: ICloudState) => void;
   fetchEpicRequest: () => void;
 }
 const mapDispatchToProps = (dispatch: Dispatch<RootActions>):IMapDispatchToProps => ({

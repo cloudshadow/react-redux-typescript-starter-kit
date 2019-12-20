@@ -1,13 +1,14 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import urlHelper from '@/utils/urlHelper';
+import { ITitle } from '@/types/HomeTypes';
 
-const getEpicTitle = () => {
-  // return fetch(`http://0.0.0.0:4000/mock_data/CloudShadow_Api_title.json`).then(response => response);
-  return axios.get(urlHelper.t('epictitle')).then(response => response.data);
+// add @babel/plugin-transform-runtime: true for async
+const getEpicTitle = async ():Promise<AxiosResponse<ITitle>> => {
+  return await axios.get(urlHelper.t('epictitle')).then(response => response);
 };
 
-const getThunkTitle = () => {
-  return axios.get(urlHelper.t('title')).then(response => response.data);
+const getThunkTitle = async ():Promise<AxiosResponse<ITitle>> => {
+  return await axios.get(urlHelper.t('title')).then(response => response);
 }
 
 export {

@@ -2,10 +2,10 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { ActionType } from "typesafe-actions";
-import rootAction from '../actions';
-import HomeComponent from '../components/Home/HomeComponent';
-import { IAppState } from '../reducers';
-import { ITitle } from '../types/HomeTypes';
+import rootAction from '@/actions';
+import HomeComponent from '@/components/Home/HomeComponent';
+import { IAppState } from '@/reducers';
+import { ITitle } from '@/types/HomeTypes';
 
 type RootActions = ActionType<typeof rootAction>;
 interface IHomeProps{

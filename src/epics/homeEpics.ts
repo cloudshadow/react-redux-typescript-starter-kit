@@ -1,20 +1,17 @@
 import { Epic } from "redux-observable";
-import { from } from 'rxjs';
-import { ActionType } from "typesafe-actions";
-import { map, filter, switchMap } from 'rxjs/operators';
-// import { ofType, combineEpics, createEpicMiddleware } from 'redux-observable';
+import { from, of } from 'rxjs';
+import { map, filter, switchMap, catchError } from 'rxjs/operators';
 import { isActionOf } from 'typesafe-actions';
-import rootAction from '../actions';
-import { IAppState } from '../reducers';
-import { getEpicTitle } from '../apis/homeApis';
+import { RootAction, Services } from '@/types/GlobalTypes'
+import rootAction from '@/actions';
+import { IHomeState } from '@/reducers/homeReducer';
 
-type RootAction = ActionType<typeof rootAction>
-export const getTitleEpic: Epic<RootAction, RootAction, IAppState> = action$ => action$.pipe(
+export const getTitleEpic: Epic<RootAction, RootAction, IHomeState, Services> = (action$, state$, api) => action$.pipe(
   filter(isActionOf(rootAction.homeActions.fetchTitleEpicAsync.request)),
-  switchMap(action =>
-    from(getEpicTitle()).pipe(
-      map(response => rootAction.homeActions.fetchTitleEpicAsync.success(response)),
-      // catchError(error => of(actions.fetchTitleEpicAsync.error(error)))
-    ),
+  switchMap(() =>
+    from(api.homeApis.getEpicTitle()).pipe(
+      map(payload => rootAction.homeActions.fetchTitleEpicAsync.success(payload.data)),
+      // catchError(error => of(rootAction.homeActions.fetchTitleEpicAsync.failure(error))),
+    )
   )
 );

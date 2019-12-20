@@ -1,14 +1,13 @@
-/* tslint:disable */
-import { createAsyncAction, createAction } from 'typesafe-actions';
-import { ITemp } from '../types/CloudTypes';
+import { deprecated, createAsyncAction } from 'typesafe-actions';
+import { ICloudState } from '@/types/CloudTypes';
+
+const { createStandardAction } = deprecated;
 
 export const cloudActions = {
   fetchEpicAsync: createAsyncAction(
     'FETCH_EPIC_REQUEST',
     'FETCH_EPIC_SUCCESS',
     'FETCH_EPIC_FAILURE',
-  )<void, ITemp, Error>(),
-  fetchThunk: createAction('FETCH_THUNK_SUCCESS', action => {
-    return (temp: ITemp) => action(temp);
-  })
+  )<void, ICloudState, Error>(),
+  fetchThunk: createStandardAction('FETCH_THUNK_SUCCESS')<ICloudState>()
 };

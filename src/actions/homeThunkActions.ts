@@ -1,7 +1,7 @@
 // payload: Optional. Any value or object containing data related to the action.
 // meta: Optional. Any value or object containing data that isn’t part of the payload.
 // import { createAction, createStandardAction } from 'typesafe-actions';
-import { ITitle } from '../types/HomeTypes';
+import { ITitle } from '@/types/HomeTypes';
 
 export const GET_HOME_TITLE = 'GET_HOME_TITLE';
 export const getTitleAction = (title: ITitle) => {

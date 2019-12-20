@@ -1,10 +1,11 @@
 import produce from 'immer';
 import { ActionType, getType } from "typesafe-actions";
-import rootAction from '../actions';
-import { ITemp } from '../types/CloudTypes';
+import rootAction from '@/actions';
+import { ICloudState } from '@/types/CloudTypes';
+
 export type CloudActionsType = ActionType<typeof rootAction.cloudActions>;
-export type ICloudState = ITemp;
-const cloudState = (state: ICloudState = {id:0, text:'', epicText:''}, action: CloudActionsType) => {
+export const defaultCloudState: ICloudState = {id:0, text:'', epicText:''};
+const cloudReducer = (state = defaultCloudState, action: CloudActionsType) => {
   switch (action.type) {
     case getType(rootAction.cloudActions.fetchThunk):
       return produce(state, draft => {draft.text = action.payload.text });
@@ -15,4 +16,4 @@ const cloudState = (state: ICloudState = {id:0, text:'', epicText:''}, action: C
   }
 };
 
-export default cloudState;
+export default cloudReducer;

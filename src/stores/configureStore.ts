@@ -4,13 +4,17 @@ import thunkMiddleware from 'redux-thunk';
 import { ActionType } from "typesafe-actions";
 import {createBrowserHistory, History} from 'history';
 import { routerMiddleware } from 'connected-react-router';
-import rootReducer, { IAppState } from '../reducers';
-import rootAction from '../actions';
-import rootEpic from '../epics';
+import rootReducer, { IAppState } from '@/reducers';
+import rootAction from '@/actions';
+import rootEpic from '@/epics';
+import services from '@/apis';
 
-export type RootActions = ActionType<typeof rootAction>;
+type RootActions = ActionType<typeof rootAction>;
+type Services = typeof import('@/apis').default;
 export const history: History = createBrowserHistory();
-const epicMiddleware = createEpicMiddleware<RootActions, RootActions, IAppState>();
+const epicMiddleware = createEpicMiddleware<RootActions, RootActions, IAppState, Services>({
+  dependencies: services,
+});
 function configureStoreProd(preloadedState?: any) {
   const middlewares = [
     // Add other middleware on this line...
@@ -51,8 +55,8 @@ function configureStoreDev(preloadedState?: any) {
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../reducers', () => {
-      const nextReducer = require('../reducers').default; // eslint-disable-line global-require
+    module.hot.accept('@/reducers', () => {
+      const nextReducer = require('@/reducers').default; // eslint-disable-line global-require
       store.replaceReducer(nextReducer);
     });
   }

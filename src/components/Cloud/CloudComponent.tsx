@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { getThunkRequest } from '../../apis/cloudApis';
-import { ITemp } from '../../types/CloudTypes';
+import { getThunkRequest } from '@/apis/cloudApis';
+import { ICloudState } from '@/types/CloudTypes';
 import './cloud.scss';
 
 interface ICloudProps{
-  fetchThunk: (temp: ITemp)  => void;
+  fetchThunk: (temp: ICloudState)  => void;
   fetchEpicRequest: ()  => void;
-  cloudState: ITemp;
+  cloudState: ICloudState;
 }
 const CloudComponent: React.FunctionComponent<ICloudProps> = React.memo(({
   fetchThunk,

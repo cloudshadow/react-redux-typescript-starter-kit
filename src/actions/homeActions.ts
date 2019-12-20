@@ -1,5 +1,7 @@
-import { createAsyncAction, createAction } from 'typesafe-actions';
-import { ITitle } from '../types/HomeTypes';
+import { deprecated, createAsyncAction } from 'typesafe-actions';
+import { ITitle } from '@/types/HomeTypes';
+
+const { createAction } = deprecated;
 
 export const homeActions = {
   fetchTitleEpicAsync: createAsyncAction(

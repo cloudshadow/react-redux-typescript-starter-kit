@@ -1,4 +1,4 @@
-export interface ITemp {
+export interface ICloudState {
   id: number;
   text: string;
   epicText: string;

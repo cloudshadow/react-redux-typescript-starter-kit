@@ -1,0 +1,27 @@
+module.exports = {
+  moduleFileExtensions: ['ts', 'tsx', 'js'],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
+  testMatch: ['**/*.test.+(ts)'],
+  collectCoverage: true,
+  coverageReporters: ['html', 'json'],
+  collectCoverageFrom: [
+    "**/*.ts",
+    "!**/node_modules/**",
+    "!**/tools/**",
+    "!**/src/*/index.ts",
+    "!**/src/index.ts",
+    "!**/src/registerServiceWorker.ts",
+    "!**/src/actions/**",
+    "!**/src/apis/**",
+    "!**/src/components/**",
+    "!**/src/containers/**",
+    "!**/src/mock_data/**",
+    "!**/src/stores/**",
+    "!**/src/test/**",
+    "!**/src/types/**",
+    "!**/src/utils/**",
+  ],
+  coverageDirectory: './TestCoverage/',
+};

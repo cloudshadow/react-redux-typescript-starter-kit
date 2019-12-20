@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
 import { History } from 'history'
 import { RouterState, connectRouter } from 'connected-react-router'
-import homeState, { IHomeState } from './homeReducer';
-import cloudState, { ICloudState } from './cloudReducer';
+import homeReducer, { IHomeState } from './homeReducer';
+import cloudReducer from './cloudReducer';
+import { ICloudState } from '@/types/CloudTypes';
 
 export interface IAppState {
   homeState: IHomeState;
@@ -11,8 +12,8 @@ export interface IAppState {
 }
 
 const rootReducer = (history: History) => combineReducers({
-  homeState,
-  cloudState,
+  homeState: homeReducer,
+  cloudState: cloudReducer,
   router: connectRouter(history)
 })
 

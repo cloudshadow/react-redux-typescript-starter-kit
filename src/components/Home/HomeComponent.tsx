@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { getThunkTitle } from '../../apis/homeApis';
-import { ITitle } from '../../types/HomeTypes';
+import { getThunkTitle } from '@/apis/homeApis';
+import { ITitle } from '@/types/HomeTypes';
 import './home.scss';
 
 // React.memo instead of PureComponent
@@ -16,8 +16,8 @@ const HomeComponent: React.FunctionComponent<IHomeProps> = React.memo(({
 }) => {
   React.useEffect(() => {
     // Get title by thunk
-    getThunkTitle().then(title => {
-      fetchTitleThunk(title)
+    getThunkTitle().then(payload => {
+      fetchTitleThunk(payload.data)
     })
     
     // Get title by epic

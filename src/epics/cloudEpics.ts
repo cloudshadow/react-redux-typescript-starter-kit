@@ -1,18 +1,17 @@
 import { Epic } from "redux-observable";
-import { from } from 'rxjs';
-import { ActionType, isActionOf } from "typesafe-actions";
-import { map, filter, switchMap } from 'rxjs/operators';
-import rootAction from '../actions';
-import { IAppState } from '../reducers';
-import { getEpicRequest } from '../apis/cloudApis';
+import { from, of } from 'rxjs';
+import { map, filter, switchMap, catchError } from 'rxjs/operators';
+import { isActionOf } from 'typesafe-actions';
+import { RootAction, Services } from '@/types/GlobalTypes'
+import rootAction from '@/actions';
+import { IAppState } from '@/reducers';
 
-type RootAction = ActionType<typeof rootAction>
-export const getResponseEpic: Epic<RootAction, RootAction, IAppState> = action$ => action$.pipe(
+export const getResponseEpic: Epic<RootAction, RootAction, IAppState, Services> = (action$, state$, api) => action$.pipe(
   filter(isActionOf(rootAction.cloudActions.fetchEpicAsync.request)),
-  switchMap(action =>
-    from(getEpicRequest()).pipe(
-      map(response => rootAction.cloudActions.fetchEpicAsync.success(response)),
-      // catchError(error => of(actions.fetchTitleEpicAsync.error(error)))
-    ),
+  switchMap(() =>
+    from(api.cloudApis.getEpicRequest()).pipe(
+      map(rootAction.cloudActions.fetchEpicAsync.success),
+      catchError(error => of(rootAction.cloudActions.fetchEpicAsync.failure(error))),
+    )
   )
 );
