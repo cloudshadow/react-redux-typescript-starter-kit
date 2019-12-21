@@ -11,7 +11,7 @@ export const getTitleEpic: Epic<RootAction, RootAction, IHomeState, Services> = 
   switchMap(() =>
     from(api.homeApis.getEpicTitle()).pipe(
       map(payload => rootAction.homeActions.fetchTitleEpicAsync.success(payload.data)),
-      // catchError(error => of(rootAction.homeActions.fetchTitleEpicAsync.failure(error))),
+      catchError(error => of(rootAction.homeActions.fetchTitleEpicAsync.failure(error))),
     )
   )
 );
