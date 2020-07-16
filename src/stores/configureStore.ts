@@ -1,19 +1,16 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
 import thunkMiddleware from 'redux-thunk';
-import { ActionType } from "typesafe-actions";
-import {createBrowserHistory, History} from 'history';
+import { createBrowserHistory, History } from 'history';
 import { routerMiddleware } from 'connected-react-router';
-import rootReducer, { IAppState } from '@/reducers';
-import rootAction from '@/actions';
+import rootReducer from '@/reducers';
 import rootEpic from '@/epics';
 import services from '@/apis';
+import { RootAction, RootState, Services } from '@/types/GlobalTypes';
 
-type RootActions = ActionType<typeof rootAction>;
-type Services = typeof import('@/apis').default;
 export const history: History = createBrowserHistory();
-const epicMiddleware = createEpicMiddleware<RootActions, RootActions, IAppState, Services>({
-  dependencies: services,
+const epicMiddleware = createEpicMiddleware<RootAction, RootAction, RootState, Services>({
+  dependencies: services
 });
 function configureStoreProd(preloadedState?: any) {
   const middlewares = [
@@ -22,15 +19,10 @@ function configureStoreProd(preloadedState?: any) {
     // https://github.com/gaearon/redux-thunk#injecting-a-custom-argument
     thunkMiddleware,
     epicMiddleware,
-    routerMiddleware(history),
+    routerMiddleware(history)
   ];
 
-  const store = createStore(
-    rootReducer(history), 
-    compose(
-      applyMiddleware(...middlewares)
-    )
-  );
+  const store = createStore(rootReducer(history), compose(applyMiddleware(...middlewares)));
   epicMiddleware.run(rootEpic);
   return store;
 }
@@ -42,16 +34,11 @@ function configureStoreDev(preloadedState?: any) {
     // https://github.com/gaearon/redux-thunk#injecting-a-custom-argument
     thunkMiddleware,
     epicMiddleware,
-    routerMiddleware(history),
+    routerMiddleware(history)
   ];
 
   const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // add support for Redux dev tools
-  const store = createStore(
-    rootReducer(history), 
-    composeEnhancers(
-      applyMiddleware(...middlewares)
-    )
-  );
+  const store = createStore(rootReducer(history), composeEnhancers(applyMiddleware(...middlewares)));
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

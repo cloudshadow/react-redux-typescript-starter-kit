@@ -1,10 +1,6 @@
 import { combineEpics } from 'redux-observable';
-import { getTitleEpic } from './homeEpics';
-import { getResponseEpic } from './cloudEpics';
+import * as homeEpics from './homeEpics';
 
-const rootEpic = combineEpics(
-  getTitleEpic,
-  getResponseEpic,
-);
+const rootEpic = combineEpics(...Object.values(homeEpics));
 
 export default rootEpic;

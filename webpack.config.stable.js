@@ -1,10 +1,10 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
 const HappyPack = require('happypack');
-const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 const smp = new SpeedMeasurePlugin();
 const folderName = new Date().getTime();
 
@@ -27,13 +27,14 @@ module.exports = smp.wrap({
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: "[name].[contenthash].css",
+      filename: '[name].[contenthash].css'
       // chunkFilename: "[id].css"
     }),
     new HappyPack({
-      loaders: [ 'babel-loader' ]
+      loaders: ['babel-loader']
     }),
-    new HtmlWebpackPlugin({     // Create HTML file that includes references to bundled CSS and JS.
+    new HtmlWebpackPlugin({
+      // Create HTML file that includes references to bundled CSS and JS.
       filename: '../index.html',
       template: 'src/index.ejs',
       minify: {
@@ -79,11 +80,11 @@ module.exports = smp.wrap({
   },
   module: {
     rules: [
-      { 
-        test: /\.(ts|js)x?$/, 
-        // loader: 'babel-loader', 
+      {
+        test: /\.(ts|js)x?$/,
+        // loader: 'babel-loader',
         use: 'happypack/loader',
-        exclude: /node_modules/ 
+        exclude: /node_modules/
       },
       {
         test: /\.eot(\?v=\d+.\d+.\d+)?$/,
@@ -116,6 +117,9 @@ module.exports = smp.wrap({
     ]
   },
   resolve: {
-    extensions: [ '.tsx', '.ts', '.js' ]
+    alias: {
+      '@': path.resolve(__dirname, './src')
+    },
+    extensions: ['.tsx', '.ts', '.js']
   }
 });
