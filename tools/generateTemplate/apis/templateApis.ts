@@ -1,16 +1,11 @@
-/* tslint:disable */
-import axios from 'axios';
-import urlHelper from '../utils/urlHelper';
+import axios, { AxiosResponse } from 'axios';
+import urlHelper from '@/utils/urlHelper';
+import { ITemp } from '@tempPath/types/TemplateTypes';
 
-const getThunkRequest = () => {
-  return axios.get(urlHelper.t('thunk')).then(response => response.data);
+export function getThunkRequest(): Promise<AxiosResponse<ITemp>> {
+  return axios.get<ITemp>(urlHelper.t('thunk'));
 }
-const getEpicRequest = () => {
+export function getEpicRequest(): Promise<AxiosResponse<ITemp>> {
   // return fetch(`http://0.0.0.0:4000/mock_data/CloudShadow_Api_title.json`).then(response => response);
-  return axios.get(urlHelper.t('epic')).then(response => response.data);
-};
-
-export {
-  getThunkRequest,
-  getEpicRequest
+  return axios.get<ITemp>(urlHelper.t('epic'));
 }

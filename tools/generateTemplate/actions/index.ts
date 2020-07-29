@@ -1,8 +1,7 @@
 import { templateActions } from './templateActions';
 
 const rootAction = {
-  templateActions
-}
+  templateActions,
+};
 
 export default rootAction;
-  

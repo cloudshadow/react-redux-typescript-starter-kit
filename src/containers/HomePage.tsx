@@ -27,7 +27,7 @@ const HomePage = (props: IHomeProps) => {
 
 const mapStateToProps = (state: RootState) => {
   return {
-    homeState: state.homeState
+    homeState: state.homeState,
   };
 };
 
@@ -36,8 +36,8 @@ interface IMapDispatchToProps {
   fetchTitleEpicRequest: () => void;
 }
 const mapDispatchToProps = (dispatch: Dispatch<RootActions>): IMapDispatchToProps => ({
-  fetchTitleThunk: args => dispatch(rootAction.homeActions.fetchTitleThunk(args)),
-  fetchTitleEpicRequest: () => dispatch(rootAction.homeActions.fetchTitleEpicAsync.request())
+  fetchTitleThunk: (args) => dispatch(rootAction.homeActions.fetchTitleThunk(args)),
+  fetchTitleEpicRequest: () => dispatch(rootAction.homeActions.fetchTitleEpicAsync.request()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

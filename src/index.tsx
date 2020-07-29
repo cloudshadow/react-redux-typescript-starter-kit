@@ -12,6 +12,7 @@ const store = configureStore();
 ReactDOM.render(
   <Provider store={store}>
     {/* ConnectedRouter will use the store from Provider automatically */}
+    {/* use env process.env.NODE_ENV */}
     <ConnectedRouter history={history}>
       <div className="index-container">
         <div className="switch-container">

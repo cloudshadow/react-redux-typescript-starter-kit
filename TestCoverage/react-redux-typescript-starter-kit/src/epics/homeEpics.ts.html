@@ -22,9 +22,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
@@ -36,16 +36,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
@@ -54,7 +54,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -74,12 +74,7 @@
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
 <a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L19'></a><a href='#L19'>19</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -87,38 +82,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Epic } from 'redux-observable';
 import { from, of } from 'rxjs';
-import { AjaxResponse } from 'rxjs/ajax';
 import { map, filter, switchMap, catchError } from 'rxjs/operators';
 import { isActionOf } from 'typesafe-actions';
 import { RootAction, RootState, Services } from '@/types/GlobalTypes';
 import rootAction from '@/actions';
 &nbsp;
-export const getTitleEpic: Epic&lt;RootAction, RootAction, RootState, Services&gt; = (action$, state$, apis) =&gt;
+export const getTitleEpic: Epic&lt;RootAction, RootAction, RootState, Services&gt; = (action$, state$, api) =&gt;
   action$.pipe(
-    // export const getTitleEpic: Epic&lt;RootAction, RootAction, IHomeState, Services&gt; = (action$) =&gt; action$.pipe(
-    filter(
-      isActionOf(rootAction.homeActions.fetchTitleEpicAsync.request),
-      switchMap(<span class="fstat-no" title="function not covered" >()</span> =&gt;
-        // from(getEpicTitle()).pipe(
-<span class="cstat-no" title="statement not covered" >        from(apis.homeApis.getTitleEpic()).pipe(</span>
-          map(<span class="fstat-no" title="function not covered" >(p</span>ayload: AjaxResponse) =&gt; <span class="cstat-no" title="statement not covered" >rootAction.homeActions.fetchTitleEpicAsync.success(payload.response))</span>,
-          catchError(<span class="fstat-no" title="function not covered" >er</span>ror =&gt; <span class="cstat-no" title="statement not covered" >of(rootAction.homeActions.fetchTitleEpicAsync.failure(error)))</span>
-        )
+    filter(isActionOf(rootAction.homeActions.fetchTitleEpicAsync.request)),
+    switchMap(() =&gt;
+      from(api.homeApis.getTitleObservable()).pipe(
+        map(payload =&gt; rootAction.homeActions.fetchTitleEpicAsync.success(payload.data)),
+        // mergeMap(payload =&gt; of(rootAction.homeActions.fetchTitleEpicAsync.success(payload.data))),
+        catchError(error =&gt; of(rootAction.homeActions.fetchTitleEpicAsync.failure(error)))
       )
     )
   );
@@ -129,7 +117,7 @@ export const getTitleEpic: Epic&lt;RootAction, RootAction, RootState, Services&g
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed May 20 2020 13:34:33 GMT+0800 (China Standard Time)
+                at Thu Jul 16 2020 14:55:52 GMT+0800 (China Standard Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

@@ -1,19 +1,17 @@
-import { Epic } from "redux-observable";
-import { from } from 'rxjs';
-import { ActionType } from "typesafe-actions";
-import { map, filter, switchMap } from 'rxjs/operators';
+import { Epic } from 'redux-observable';
+import { from, of } from 'rxjs';
+import { map, filter, switchMap, catchError } from 'rxjs/operators';
 import { isActionOf } from 'typesafe-actions';
-import rootAction from '../actions';
-import { IAppState } from '../reducers';
-import { getEpicRequest } from '../apis/templateApis';
+import { RootAction, RootState, Services } from '@tempPath/types/GlobalTypes';
+import rootAction from '@tempPath/actions';
 
-type RootAction = ActionType<typeof rootAction>
-export const getTemplateResponseEpic: Epic<RootAction, RootAction, IAppState> = action$ => action$.pipe(
-  filter(isActionOf(rootAction.templateActions.fetchEpicAsync.request)),
-  switchMap(action =>
-    from(getEpicRequest()).pipe(
-      map(response => rootAction.templateActions.fetchEpicAsync.success(response)),
-      // catchError(error => of(actions.fetchTitleEpicAsync.error(error)))
-    ),
-  )
-);
+export const getTemplateResponseEpic: Epic<RootAction, RootAction, RootState, Services> = (action$, state$, api) =>
+  action$.pipe(
+    filter(isActionOf(rootAction.templateActions.fetchEpicAsync.request)),
+    switchMap(() =>
+      from(api.tempApis.getEpicRequest).pipe(
+        map((payload) => rootAction.templateActions.fetchEpicAsync.success(payload)),
+        catchError((error) => of(rootAction.templateActions.fetchEpicAsync.failure(error)))
+      )
+    )
+  );
