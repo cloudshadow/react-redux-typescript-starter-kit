@@ -9,8 +9,8 @@ export const getTemplateResponseEpic: Epic<RootAction, RootAction, RootState, Se
   action$.pipe(
     filter(isActionOf(rootAction.templateActions.fetchEpicAsync.request)),
     switchMap(() =>
-      from(api.tempApis.getEpicRequest).pipe(
-        map((payload) => rootAction.templateActions.fetchEpicAsync.success(payload)),
+      from(api.templateApis.getEpicRequest()).pipe(
+        map((payload) => rootAction.templateActions.fetchEpicAsync.success(payload.data)),
         catchError((error) => of(rootAction.templateActions.fetchEpicAsync.failure(error)))
       )
     )

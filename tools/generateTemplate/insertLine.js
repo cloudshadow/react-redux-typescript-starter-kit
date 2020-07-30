@@ -4,11 +4,11 @@ Author: cloudshadow
 import fs from 'fs';
 
 const insertLine = (filePath, targetList) => {
-  const getFileContent = (filePath) => {
+  const getFileContent = () => {
     return fs.readFileSync(filePath, 'utf8');
   };
   // [{targetText insertText adjustLine targetLine}]
-  const getInsertLines = (fileContentByLines, targetList) => {
+  const getInsertLines = (fileContentByLines) => {
     let finalTargetList = [];
     for (let i = 0; i < fileContentByLines.length; i++) {
       for (let j = 0; j < targetList.length; j++) {
@@ -25,9 +25,9 @@ const insertLine = (filePath, targetList) => {
     finalTargetList = finalTargetList.sort((a, b) => a.targetLine - b.targetLine);
     return finalTargetList;
   };
-  const insertBeforeTargetLine = (filePath, targetList) => {
-    const fileContentByLines = getFileContent(filePath).split('\n');
-    const finalTargetInsertList = getInsertLines(fileContentByLines, targetList);
+  const insertBeforeTargetLine = () => {
+    const fileContentByLines = getFileContent().split('\n');
+    const finalTargetInsertList = getInsertLines(fileContentByLines);
     for (let i = 0; i < finalTargetInsertList.length; i++) {
       fileContentByLines.splice(
         finalTargetInsertList[i].targetLine + 1 + finalTargetInsertList[i].adjustLine + i,
@@ -39,7 +39,7 @@ const insertLine = (filePath, targetList) => {
       if (err) return console.log(err);
     });
   };
-  insertBeforeTargetLine(filePath, targetList);
+  insertBeforeTargetLine();
 };
 
 export default insertLine;

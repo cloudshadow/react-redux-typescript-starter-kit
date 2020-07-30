@@ -13,7 +13,6 @@ const deleteLine = (filePath, targetLineList) => {
     for (let i = 0; i < fileContentByLines.length; i++) {
       for (let j = 0; j < targetLineList.length; j++) {
         if (fileContentByLines[i].indexOf(targetLineList[j]) >= 0) {
-          console.log('line:', i);
           indexArray.push(i);
         }
       }

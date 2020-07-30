@@ -1,5 +1,5 @@
-import * as tempApis from './templateApis';
+import * as templateApis from './templateApis';
 
 export default {
-  tempApis,
+  templateApis,
 };

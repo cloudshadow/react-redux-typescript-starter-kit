@@ -24,6 +24,7 @@ const path = {
   actionPath: './src/actions/',
   actionIndexPath: './src/actions/index.ts',
   apiPath: './src/apis/',
+  apiIndexPath: './src/apis/index.ts',
   epicPath: './src/epics/',
   epicIndexPath: './src/epics/index.ts',
   typePath: './src/types/',
@@ -108,6 +109,19 @@ function generateApi(upperCaseName, lowerCaseName) {
   const filePath = path.apiPath + lowerCaseName + 'Apis.ts',
     tempFilePath = './tools/generateTemplate/apis/TemplateApis.ts';
   createFile(upperCaseName, lowerCaseName, filePath, tempFilePath);
+  const targetList = [
+    {
+      targetText: `export default {`,
+      insertText: `import * as ${lowerCaseName}Apis from './${lowerCaseName}Apis';`,
+      adjustLine: -2,
+    },
+    {
+      targetText: `};`,
+      insertText: `  ${lowerCaseName}Apis,`,
+      adjustLine: -1,
+    },
+  ];
+  insertLine(path.apiIndexPath, targetList);
 }
 
 function generateEpic(upperCaseName, lowerCaseName) {
@@ -147,7 +161,7 @@ function generateReducer(upperCaseName, lowerCaseName) {
     },
     {
       targetText: `});`,
-      insertText: `    ${lowerCaseName}State:  ${lowerCaseName}Reducer,`,
+      insertText: `    ${lowerCaseName}State: ${lowerCaseName}Reducer,`,
       adjustLine: -2,
     },
   ];
@@ -176,8 +190,8 @@ function createFile(upperCaseName, lowerCaseName, filePath, tempFilePath) {
         .replace(/TEMPLATE/g, upperCaseName.toUpperCase());
     }
     // const result = data.replace(/Template/g, upperCaseName).replace(/template/g, lowerCaseName).split('\n').slice(1).join('\n');
-    fs.writeFile(filePath, result, 'utf8', function (err) {
-      if (err) return console.log(err);
+    fs.writeFile(filePath, result, 'utf8', function (writeErr) {
+      if (writeErr) return console.log(writeErr);
     });
   });
 }
