@@ -6,7 +6,7 @@ import homeReducer from './homeReducer';
 const rootReducer = (history: History) =>
   combineReducers({
     homeState: homeReducer,
-    router: connectRouter(history)
+    router: connectRouter(history),
   });
 
 export default rootReducer;

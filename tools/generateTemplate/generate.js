@@ -60,14 +60,14 @@ function generateContainer(upperCaseName, lowerCaseName) {
   createFile(upperCaseName, lowerCaseName, filePath, tempFilePath);
   const targetList = [
     {
-      targetText: `<Switch>`,
+      targetText: `Route component={NotfoundPage}`,
       insertText: `            <Route path="/${lowerCaseName}" component={${upperCaseName}Page} />`,
-      adjustLine: +2,
+      adjustLine: -1,
     },
     {
-      targetText: `const store = configureStore();`,
+      targetText: `import NotfoundPage`,
       insertText: `import ${upperCaseName}Page from './containers/${upperCaseName}Page';`,
-      adjustLine: -2,
+      adjustLine: -1,
     },
   ];
   insertLine(path.indexPath, targetList);
@@ -117,10 +117,14 @@ function generateEpic(upperCaseName, lowerCaseName) {
   const targetList = [
     {
       targetText: `const rootEpic = combineEpics(`,
-      insertText: `import { get${upperCaseName}ResponseEpic } from './${lowerCaseName}Epics';`,
-      adjustLine: -2,
+      insertText: `import * as ${lowerCaseName}Epics from './${lowerCaseName}Epics';`,
+      adjustLine: -3,
     },
-    { targetText: `const rootEpic = combineEpics(`, insertText: `  get${upperCaseName}ResponseEpic,`, adjustLine: +1 },
+    {
+      targetText: `const rootEpic = combineEpics(`,
+      insertText: `  ...Object.values(${lowerCaseName}Epics),`,
+      adjustLine: +1,
+    },
   ];
   insertLine(path.epicIndexPath, targetList);
 }
@@ -137,16 +141,15 @@ function generateReducer(upperCaseName, lowerCaseName) {
   createFile(upperCaseName, lowerCaseName, filePath, tempFilePath);
   const targetList = [
     {
-      targetText: `export interface IAppState {`,
-      insertText: `import ${lowerCaseName}State, { I${upperCaseName}State } from './${lowerCaseName}Reducer';`,
+      targetText: `const rootReducer = (history: History) =>`,
+      insertText: `import ${lowerCaseName}Reducer from './${lowerCaseName}Reducer';`,
       adjustLine: -2,
     },
     {
-      targetText: `export interface IAppState {`,
-      insertText: `  ${lowerCaseName}State: I${upperCaseName}State;`,
-      adjustLine: +1,
+      targetText: `});`,
+      insertText: `    ${lowerCaseName}State:  ${lowerCaseName}Reducer,`,
+      adjustLine: -2,
     },
-    { targetText: `router: connectRouter(history)`, insertText: `  ${lowerCaseName}State,`, adjustLine: -1 },
   ];
   insertLine(path.reducerIndexPath, targetList);
 }
@@ -161,6 +164,7 @@ function createFile(upperCaseName, lowerCaseName, filePath, tempFilePath) {
       result = data
         .replace(/Template/g, upperCaseName)
         .replace(/template/g, lowerCaseName)
+        .replace(/\@tempPath/g, '@')
         .split('\n')
         .slice(1)
         .join('\n');
@@ -168,6 +172,7 @@ function createFile(upperCaseName, lowerCaseName, filePath, tempFilePath) {
       result = data
         .replace(/Template/g, upperCaseName)
         .replace(/template/g, lowerCaseName)
+        .replace(/\@tempPath/g, '@')
         .replace(/TEMPLATE/g, upperCaseName.toUpperCase());
     }
     // const result = data.replace(/Template/g, upperCaseName).replace(/template/g, lowerCaseName).split('\n').slice(1).join('\n');
@@ -181,4 +186,6 @@ function upperCase(value) {
   return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
-process.argv[2] && process.argv[3] ? generate(process.argv[2], process.argv[3], process.argv[4]) : console.log('Attribute Error');
+process.argv[2] && process.argv[3]
+  ? generate(process.argv[2], process.argv[3], process.argv[4])
+  : console.log('Attribute Error');

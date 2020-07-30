@@ -3,7 +3,7 @@ import { homeThunkActions } from './homeThunkActions';
 
 const rootAction = {
   homeActions,
-  homeThunkActions
+  homeThunkActions,
 };
 
 export default rootAction;
