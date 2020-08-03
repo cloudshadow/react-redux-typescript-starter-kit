@@ -4,6 +4,7 @@ const path = require('path');
 const HappyPack = require('happypack');
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 const smp = new SpeedMeasurePlugin();
+console.log('wb', process.env.REACT_APP_ENV);
 
 module.exports = smp.wrap({
   mode: 'development',
@@ -71,6 +72,9 @@ module.exports = smp.wrap({
       loaders: ['babel-loader'],
     }),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.EnvironmentPlugin({
+      REACT_APP_ENV: 'development',
+    }),
   ],
   // When importing a module whose path matches one of the following, just
   // assume a corresponding global variable exists and use that instead.
@@ -93,3 +97,4 @@ module.exports = smp.wrap({
     historyApiFallback: true,
   },
 });
+console.log('wb1', process.env.REACT_APP_ENV);

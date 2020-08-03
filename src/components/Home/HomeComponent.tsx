@@ -9,26 +9,28 @@ interface IHomeProps {
   fetchTitleEpicRequest: () => void;
   homeState: ITitle;
 }
-const HomeComponent: React.FunctionComponent<IHomeProps> = React.memo(({ fetchTitleThunk, fetchTitleEpicRequest, homeState }) => {
-  React.useEffect(() => {
-    // Get title by thunk
-    getTitleThunk().then(payload => {
-      fetchTitleThunk(payload.data);
-    });
+const HomeComponent: React.FunctionComponent<IHomeProps> = React.memo(
+  ({ fetchTitleThunk, fetchTitleEpicRequest, homeState }) => {
+    React.useEffect(() => {
+      // Get title by thunk
+      getTitleThunk().then((payload) => {
+        fetchTitleThunk(payload.data);
+      });
 
-    // Get title by epic
-    fetchTitleEpicRequest();
-  }, []);
+      // Get title by epic
+      fetchTitleEpicRequest();
+    }, []);
 
-  return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-sm-12">{homeState.title ? homeState.title : ''}</div>
-        <div className="col-sm-12">{homeState.epicTitle ? homeState.epicTitle : ''}</div>
-        <div>{!homeState.epicTitle && !homeState.title ? 'Loading...' : ''}</div>
+    return (
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-sm-12">{homeState.title ? homeState.title : ''}</div>
+          <div className="col-sm-12">{homeState.epicTitle ? homeState.epicTitle : ''}</div>
+          <div>{!homeState.epicTitle && !homeState.title ? 'Loading...' : ''}</div>
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  }
+);
 
 export default HomeComponent;

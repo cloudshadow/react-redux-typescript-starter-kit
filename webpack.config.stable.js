@@ -12,12 +12,12 @@ module.exports = smp.wrap({
   mode: 'production',
   entry: [
     // must be first entry to properly set public path
-    path.resolve(__dirname, 'src/index.tsx') // Defining path seems necessary for this to work consistently on Windows machines.
+    path.resolve(__dirname, 'src/index.tsx'), // Defining path seems necessary for this to work consistently on Windows machines.
   ],
   output: {
     path: path.resolve(__dirname, 'dist-stable/' + folderName + '/'),
     publicPath: 'http://stable.domain.com/' + folderName + '/',
-    filename: '[name].[contenthash].js'
+    filename: '[name].[contenthash].js',
   },
   plugins: [
     // Hash the files using MD5 so that their names change when the content changes.
@@ -27,11 +27,11 @@ module.exports = smp.wrap({
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: '[name].[contenthash].css'
+      filename: '[name].[contenthash].css',
       // chunkFilename: "[id].css"
     }),
     new HappyPack({
-      loaders: ['babel-loader']
+      loaders: ['babel-loader'],
     }),
     new HtmlWebpackPlugin({
       // Create HTML file that includes references to bundled CSS and JS.
@@ -47,9 +47,9 @@ module.exports = smp.wrap({
         keepClosingSlash: true,
         minifyJS: true,
         minifyCSS: true,
-        minifyURLs: true
+        minifyURLs: true,
       },
-      inject: true
+      inject: true,
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
@@ -57,11 +57,14 @@ module.exports = smp.wrap({
       noInfo: true, // set to false to see a list of every file being bundled.
       options: {
         sassLoader: {
-          includePaths: [path.resolve(__dirname, 'src', 'scss')]
+          includePaths: [path.resolve(__dirname, 'src', 'scss')],
         },
-        context: '/'
-      }
-    })
+        context: '/',
+      },
+    }),
+    new webpack.EnvironmentPlugin({
+      REACT_APP_ENV: 'stable',
+    }),
   ],
   optimization: {
     minimizer: [
@@ -72,11 +75,11 @@ module.exports = smp.wrap({
         uglifyOptions: {
           compress: false,
           ecma: 6,
-          mangle: true
+          mangle: true,
         },
-        sourceMap: true
-      })
-    ]
+        sourceMap: true,
+      }),
+    ],
   },
   module: {
     rules: [
@@ -84,42 +87,42 @@ module.exports = smp.wrap({
         test: /\.(ts|js)x?$/,
         // loader: 'babel-loader',
         use: 'happypack/loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.eot(\?v=\d+.\d+.\d+)?$/,
-        loader: 'file-loader'
+        loader: 'file-loader',
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff',
       },
       {
         test: /\.[ot]tf(\?v=\d+.\d+.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=application/octet-stream'
+        loader: 'url-loader?limit=10000&mimetype=application/octet-stream',
       },
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
+        loader: 'url-loader?limit=10000&mimetype=image/svg+xml',
       },
       {
         test: /\.(jpe?g|png|gif)$/i,
-        loader: 'file-loader?name=[name].[ext]'
+        loader: 'file-loader?name=[name].[ext]',
       },
       {
         test: /\.ico$/,
-        loader: 'file-loader?name=[name].[ext]'
+        loader: 'file-loader?name=[name].[ext]',
       },
       {
         test: /(\.css|\.scss|\.sass)$/,
-        loaders: [MiniCssExtractPlugin.loader, 'css-loader?sourceMap', 'sass-loader?sourceMap']
-      }
-    ]
+        loaders: [MiniCssExtractPlugin.loader, 'css-loader?sourceMap', 'sass-loader?sourceMap'],
+      },
+    ],
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src')
+      '@': path.resolve(__dirname, './src'),
     },
-    extensions: ['.tsx', '.ts', '.js']
-  }
+    extensions: ['.tsx', '.ts', '.js'],
+  },
 });
