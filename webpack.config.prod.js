@@ -18,6 +18,11 @@ module.exports = smp.wrap({
     path: path.resolve(__dirname, 'dist/' + folderName + '/'),
     publicPath: 'http://production.domain.com/' + folderName + '/',
     filename: '[name].[contenthash].js',
+    chunkFilename: 'vender.[id].chunk.js',
+  },
+  performance: {
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
   },
   plugins: [
     // Hash the files using MD5 so that their names change when the content changes.
@@ -31,6 +36,7 @@ module.exports = smp.wrap({
       // chunkFilename: "[id].css"
     }),
     new HappyPack({
+      threads: 3,
       loaders: ['babel-loader'],
     }),
     new HtmlWebpackPlugin({
@@ -67,6 +73,26 @@ module.exports = smp.wrap({
     }),
   ],
   optimization: {
+    splitChunks: {
+      chunks: 'all',
+      minSize: 30000,
+      maxSize: 0,
+      minChunks: 1,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
+      automaticNameDelimiter: '~',
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10,
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true,
+        },
+      },
+    },
     minimizer: [
       // we specify a custom UglifyJsPlugin here to get source maps in production
       new UglifyJsPlugin({

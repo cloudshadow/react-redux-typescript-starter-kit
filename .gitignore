@@ -4,10 +4,10 @@
 /node_modules
 
 # testing
-/coverage
+/TestCoverage
 
 # production
-/build
+/dist
 
 # misc
 .DS_Store

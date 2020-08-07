@@ -14,8 +14,6 @@ const urlHelper = {
       window.location.href.indexOf('//172') > -1 ||
       window.location.href.indexOf('//10') > -1 ||
       window.location.href.indexOf('//0') > -1;
-    // const remoteServer = '';
-    // const apiPath = 'CloudShadow/Api/';
 
     if (localDev && !server.address) {
       // console.log(remoteServer + apiPath + url);
