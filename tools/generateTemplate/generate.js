@@ -12,9 +12,7 @@
  *   After generate container, u need import container in router.ts and import reducer in reducers/index.ts
  */
 
-/* eslint-disable */
 import fs from 'fs';
-// import readline from 'readline';
 import insertLine from './insertLine';
 
 const path = {
@@ -178,7 +176,7 @@ function createFile(upperCaseName, lowerCaseName, filePath, tempFilePath) {
       result = data
         .replace(/Template/g, upperCaseName)
         .replace(/template/g, lowerCaseName)
-        .replace(/\@tempPath/g, '@')
+        .replace(/@tempPath/g, '@')
         .split('\n')
         .slice(1)
         .join('\n');
@@ -186,7 +184,7 @@ function createFile(upperCaseName, lowerCaseName, filePath, tempFilePath) {
       result = data
         .replace(/Template/g, upperCaseName)
         .replace(/template/g, lowerCaseName)
-        .replace(/\@tempPath/g, '@')
+        .replace(/@tempPath/g, '@')
         .replace(/TEMPLATE/g, upperCaseName.toUpperCase());
     }
     // const result = data.replace(/Template/g, upperCaseName).replace(/template/g, lowerCaseName).split('\n').slice(1).join('\n');

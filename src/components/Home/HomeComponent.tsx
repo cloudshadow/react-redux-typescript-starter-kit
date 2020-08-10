@@ -21,6 +21,8 @@ const HomeComponent: React.FunctionComponent<IHomeProps> = React.memo(
       fetchTitleEpicRequest();
     }, []);
 
+    if (homeState.loading) return <p>Loading...</p>;
+    if (homeState.error) return <p>Error :(</p>;
     return (
       <div className="container-fluid">
         <div className="row">
