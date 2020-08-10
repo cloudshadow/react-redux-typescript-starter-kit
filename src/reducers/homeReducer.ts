@@ -11,6 +11,8 @@ const home = createReducer<IHomeState, IHomeActions>(defaultHomeState)
     produce(state, (draft) => {
       draft.id = action.payload.id;
       draft.title = action.payload.title;
+      draft.loading = false;
+      draft.error = false;
     })
   )
   .handleType(getType(rootAction.homeActions.fetchTitleEpicAsync.request), (state, action) =>
