@@ -5,7 +5,7 @@
   "scripts": {
     "start:dev": "webpack-dev-server --hot --color --config ./webpack.config.dev.js",
     "start:prod": "npm run clean-dist && webpack --config ./webpack.config.prod.js --color",
-    "start:stable": "npm run clean-dist-stable && webpack --config ./webpack.config.stable.js",
+    "start:test": "npm run clean-dist-stable && webpack --config ./webpack.config.test.js",
     "eslint": "./node_modules/.bin/eslint ./src/**/*.{ts,tsx}",
     "clean-dist": "npm run remove-dist && mkdir dist",
     "clean-dist-stable": "npm run remove-dist-stable && mkdir dist-stable",

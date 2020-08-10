@@ -1,11 +1,11 @@
 import axios, { AxiosResponse } from 'axios';
 import urlHelper from '@/utils/urlHelper';
-import { ITitle } from '@/types/HomeTypes';
+import { IHomeState } from '@/types/HomeTypes';
 
-export function getTitleObservable(): Promise<AxiosResponse<ITitle>> {
-  return axios.get<ITitle>(urlHelper.t(urlHelper.servers.prodServer, 'epictitle'));
+export function getTitleObservable(): Promise<AxiosResponse<IHomeState>> {
+  return axios.get<IHomeState>(urlHelper.t(urlHelper.servers.prodServer, 'epictitle'));
 }
 
-export function getTitleThunk(): Promise<AxiosResponse<ITitle>> {
-  return axios.get<ITitle>(urlHelper.t(urlHelper.servers.prodServer, 'title'));
+export function getTitleThunk(): Promise<AxiosResponse<IHomeState>> {
+  return axios.get<IHomeState>(urlHelper.t(urlHelper.servers.prodServer, 'title'));
 }

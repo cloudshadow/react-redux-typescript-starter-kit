@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { getTitleThunk } from '@/apis/homeApis';
-import { ITitle } from '@/types/HomeTypes';
+import { IHomeState } from '@/types/HomeTypes';
 import './home.scss';
 
 // React.memo instead of PureComponent
 interface IHomeProps {
-  fetchTitleThunk: (title: ITitle) => void;
+  fetchTitleThunk: (title: IHomeState) => void;
   fetchTitleEpicRequest: () => void;
-  homeState: ITitle;
+  homeState: IHomeState;
 }
 const HomeComponent: React.FunctionComponent<IHomeProps> = React.memo(
   ({ fetchTitleThunk, fetchTitleEpicRequest, homeState }) => {

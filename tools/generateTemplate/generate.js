@@ -155,13 +155,13 @@ function generateReducer(upperCaseName, lowerCaseName) {
   createFile(upperCaseName, lowerCaseName, filePath, tempFilePath);
   const targetList = [
     {
-      targetText: `const rootReducer = (history: History) =>`,
-      insertText: `import ${lowerCaseName}Reducer from './${lowerCaseName}Reducer';`,
+      targetText: `export const history: History = createBrowserHistory();`,
+      insertText: `import ${lowerCaseName} from './${lowerCaseName}Reducer';`,
       adjustLine: -2,
     },
     {
       targetText: `});`,
-      insertText: `    ${lowerCaseName}State: ${lowerCaseName}Reducer,`,
+      insertText: `  ${lowerCaseName},`,
       adjustLine: -2,
     },
   ];

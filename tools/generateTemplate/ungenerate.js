@@ -65,10 +65,12 @@ function ungenerateContainer(upperCaseName, lowerCaseName) {
         `${lowerCaseName}Actions,`,
       ],
     },
+    // api file
     {
       filePath: path.apiPath + 'index.ts',
       deleteLineString: [`import * as ${lowerCaseName}Apis from './${lowerCaseName}Apis';`, `${lowerCaseName}Apis,`],
     },
+    // epic file
     {
       filePath: path.epicPath + 'index.ts',
       deleteLineString: [
@@ -76,12 +78,10 @@ function ungenerateContainer(upperCaseName, lowerCaseName) {
         `...Object.values(${lowerCaseName}Epics),`,
       ],
     },
+    // reducer file
     {
       filePath: path.reducerPath + 'index.ts',
-      deleteLineString: [
-        `import ${lowerCaseName}Reducer from './${lowerCaseName}Reducer';`,
-        `${lowerCaseName}State: ${lowerCaseName}Reducer,`,
-      ],
+      deleteLineString: [`import ${lowerCaseName} from './${lowerCaseName}Reducer';`, `${lowerCaseName},`],
     },
     {
       filePath: path.rootPath + 'index.tsx',

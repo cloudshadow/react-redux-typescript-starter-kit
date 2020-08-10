@@ -5,14 +5,14 @@ import { ActionType } from 'typesafe-actions';
 import rootAction from '@tempPath/actions';
 import TemplateComponent from '@tempPath/components/Template/TemplateComponent';
 import { RootState } from '@tempPath/types/GlobalTypes';
-import { ITemp } from '@tempPath/types/TemplateTypes';
+import { ITemplateState } from '@tempPath/types/TemplateTypes';
 
 type RootActions = ActionType<typeof rootAction>;
 interface ITemplateProps {
   getThunk: () => void;
   fetchEpicRequest: () => void;
   fetchThunk: () => void;
-  templateState: ITemp;
+  templateState: ITemplateState;
 }
 
 const TemplatePage = (props: ITemplateProps) => {
@@ -27,16 +27,16 @@ const TemplatePage = (props: ITemplateProps) => {
 
 const mapStateToProps = (state: RootState) => {
   return {
-    templateState: state.templateState,
+    templateState: state.template,
   };
 };
 
 interface IMapDispatchToProps {
-  fetchThunk: (args: ITemp) => void;
+  fetchThunk: (args: ITemplateState) => void;
   fetchEpicRequest: () => void;
 }
 const mapDispatchToProps = (dispatch: Dispatch<RootActions>): IMapDispatchToProps => ({
-  fetchThunk: (args: ITemp) => dispatch(rootAction.templateActions.fetchThunk(args)),
+  fetchThunk: (args: ITemplateState) => dispatch(rootAction.templateActions.fetchThunk(args)),
   fetchEpicRequest: () => dispatch(rootAction.templateActions.fetchEpicAsync.request()),
 });
 

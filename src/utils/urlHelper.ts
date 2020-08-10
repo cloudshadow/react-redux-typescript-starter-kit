@@ -17,10 +17,10 @@ const urlHelper = {
 
     if (localDev && !server.address) {
       // console.log(remoteServer + apiPath + url);
-      console.log('%cLocal Debug + Json Data', 'color:blue;font-size:1em;');
+      console.log(`${server.apiPath + url}: %cLocal Debug + Json Data`, 'color:blue;font-size:1em;');
       return '../mock_data/' + (server.apiPath + url).split('?')[0].split('/').join('_') + '.json';
     } else if (localDev && server.address) {
-      console.log('%cLocal Debug + Remote Server', 'color:green;font-size:1em;');
+      console.log(`${server.apiPath + url}: %cLocal Debug + Remote Server`, 'color:green;font-size:1em;');
       return server.address + server.apiPath + url;
     } else if (!localDev) {
       return window.location.origin + '/' + server.apiPath + url;

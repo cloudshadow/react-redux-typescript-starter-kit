@@ -1,16 +1,18 @@
 import { combineReducers } from 'redux';
-import { History } from 'history'
-import { RouterState, connectRouter } from 'connected-react-router'
-import templateState, { ITemplateState } from './tempReducer';
+import { History } from 'history';
+import { RouterState, connectRouter } from 'connected-react-router';
+import { ITemplateState } from '@tempPath/types/TemplateTypes';
+import template from './tempReducer';
 
 export interface IAppState {
-  templateState: ITemplateState;
+  template: ITemplateState;
   router: RouterState;
 }
 
-const rootReducer = (history: History) => combineReducers({
-  templateState,
-  router: connectRouter(history)
-})
+const rootReducer = (history: History) =>
+  combineReducers({
+    template,
+    router: connectRouter(history),
+  });
 
 export default rootReducer;

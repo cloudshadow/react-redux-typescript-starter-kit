@@ -5,14 +5,14 @@ import { ActionType } from 'typesafe-actions';
 import rootAction from '@/actions';
 import HomeComponent from '@/components/Home/HomeComponent';
 import { RootState } from '@/types/GlobalTypes';
-import { ITitle } from '@/types/HomeTypes';
+import { IHomeState } from '@/types/HomeTypes';
 
 type RootActions = ActionType<typeof rootAction>;
 interface IHomeProps {
   getThunkTitle: () => void;
   fetchTitleEpicRequest: () => void;
   fetchTitleThunk: () => void;
-  homeState: ITitle;
+  homeState: IHomeState;
 }
 
 const HomePage = (props: IHomeProps) => {
@@ -27,12 +27,12 @@ const HomePage = (props: IHomeProps) => {
 
 const mapStateToProps = (state: RootState) => {
   return {
-    homeState: state.homeState,
+    homeState: state.home,
   };
 };
 
 interface IMapDispatchToProps {
-  fetchTitleThunk: (args: ITitle) => void;
+  fetchTitleThunk: (args: IHomeState) => void;
   fetchTitleEpicRequest: () => void;
 }
 const mapDispatchToProps = (dispatch: Dispatch<RootActions>): IMapDispatchToProps => ({

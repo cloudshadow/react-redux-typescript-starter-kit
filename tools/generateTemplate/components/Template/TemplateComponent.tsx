@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { getThunkRequest } from '@tempPath/apis/templateApis';
-import { ITemp } from '@tempPath/types/TemplateTypes';
+import { ITemplateState } from '@tempPath/types/TemplateTypes';
 import './template.scss';
 
 interface ITemplateProps {
-  fetchThunk: (temp: ITemp) => void;
+  fetchThunk: (temp: ITemplateState) => void;
   fetchEpicRequest: () => void;
-  templateState: ITemp;
+  templateState: ITemplateState;
 }
 const TemplateComponent: React.FunctionComponent<ITemplateProps> = React.memo(
   ({ fetchThunk, fetchEpicRequest, templateState }) => {

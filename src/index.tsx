@@ -5,16 +5,15 @@ import { Route, Switch } from 'react-router';
 import { ConnectedRouter } from 'connected-react-router';
 import HomePage from './containers/HomePage';
 import NotfoundPage from './containers/NotfoundPage';
-import configureStore, { history } from './stores/configureStore';
+import configureStore from './stores/configureStore';
+import { history } from '@/reducers';
 import './index.scss';
 
 const store = configureStore();
 ReactDOM.render(
   <Provider store={store}>
     {/* ConnectedRouter will use the store from Provider automatically */}
-    {/* use env process.env.NODE_ENV */}
-    {console.log(process.env)}
-    {console.log(process.env.REACT_APP_ENV)}
+    {/* use env process.env.NODE_ENV or process.env.REACT_APP_ENV*/}
     <ConnectedRouter history={history}>
       <div className="index-container">
         <div className="switch-container">

@@ -1,22 +1,22 @@
 import produce from 'immer';
-import { ActionType, getType } from 'typesafe-actions';
+import { ActionType, getType, createReducer } from 'typesafe-actions';
 import rootAction from '@tempPath/actions';
-import { ITemp } from '@tempPath/types/TemplateTypes';
-export type TemplateActionsType = ActionType<typeof rootAction.templateActions>;
-export type ITemplateState = ITemp;
-const templateState = (state: ITemplateState = { id: 0, text: '', epicText: '' }, action: TemplateActionsType) => {
-  switch (action.type) {
-    case getType(rootAction.templateActions.fetchThunk):
-      return produce(state, (draft) => {
-        draft.text = action.payload.text;
-      });
-    case getType(rootAction.templateActions.fetchEpicAsync.success):
-      return produce(state, (draft) => {
-        draft.epicText = action.payload.epicText;
-      });
-    default:
-      return state;
-  }
-};
+import { ITemplateState } from '@tempPath/types/TemplateTypes';
+export type ITemplateActions = ActionType<typeof rootAction.templateActions>;
+export const defaultTemplateState: ITemplateState = { id: 0, text: '', epicText: '' };
 
-export default templateState;
+const template = createReducer<ITemplateState, ITemplateActions>(defaultTemplateState)
+  .handleType(getType(rootAction.templateActions.fetchThunk), (state, action) =>
+    produce(state, (draft) => {
+      draft.id = action.payload.id;
+      draft.text = action.payload.text;
+    })
+  )
+  .handleType(getType(rootAction.templateActions.fetchEpicAsync.success), (state, action) =>
+    produce(state, (draft) => {
+      draft.id = action.payload.id;
+      draft.epicText = action.payload.epicText;
+    })
+  );
+
+export default template;
