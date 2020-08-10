@@ -22,6 +22,7 @@ module.exports = {
     '!**/src/test/**',
     '!**/src/types/**',
     '!**/src/utils/**',
+    '!./images.d.ts',
   ],
   coverageDirectory: './TestCoverage/',
 };
