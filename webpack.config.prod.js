@@ -112,7 +112,7 @@ module.exports = smp.wrap({
       {
         test: /\.(ts|js)x?$/,
         // loader: 'babel-loader',
-        use: 'happypack/loader',
+        use: ['cache-loader', 'happypack/loader'],
         exclude: /node_modules/,
       },
       {

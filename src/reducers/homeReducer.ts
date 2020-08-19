@@ -9,10 +9,10 @@ export const defaultHomeState: IHomeState = { id: 0, title: '', epicTitle: '', l
 const home = createReducer<IHomeState, IHomeActions>(defaultHomeState)
   .handleType(getType(rootAction.homeActions.fetchTitleThunk), (state, action) =>
     produce(state, (draft) => {
-      draft.id = action.payload.id;
-      draft.title = action.payload.title;
       draft.loading = false;
       draft.error = false;
+      draft.id = action.payload.id;
+      draft.title = action.payload.title;
     })
   )
   .handleType(getType(rootAction.homeActions.fetchTitleEpicAsync.request), (state, action) =>
