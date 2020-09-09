@@ -27,11 +27,11 @@
 
 1. npm run start:prod (build production package)
 2. npm run start:test (build stable package)
-3. npm run generate component <component name>
-   > Generate 2 files (component js and component scss) in <component name> folder
-4. npm run generate sub-component <component name> <sub component path>
-   > Generate 2 files (component js and component scss) in under the <sub component path> folder
-5. npm run generate container <container name>
+3. npm run generate component \${component name}
+   > Generate 2 files (component js and component scss) in \${component name} folder
+4. npm run generate sub-component ${component name} ${sub component path}
+   > Generate 2 files (component js and component scss) in under the \${sub component path} folder
+5. npm run generate container \${container name}
    > Generate container, component, action, reducer
 
 ## License
