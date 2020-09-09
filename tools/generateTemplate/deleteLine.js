@@ -3,7 +3,7 @@ Author: cloudshadow
 */
 import fs from 'fs';
 
-const deleteLine = (filePath, targetLineList, deleteLines = 1) => {
+const deleteLine = (filePath, targetLineList, deleteLines) => {
   const getFileContent = () => {
     return fs.readFileSync(filePath, 'utf8');
   };

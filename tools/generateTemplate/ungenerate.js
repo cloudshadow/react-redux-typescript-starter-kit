@@ -87,11 +87,12 @@ function ungenerateContainer(upperCaseName, lowerCaseName) {
     // App file
     {
       filePath: path.appPath,
-      deleteLineString: [
-        `import ${upperCaseName}Page from './containers/${upperCaseName}Page';`,
-        `component={${upperCaseName}Page}`,
-        3,
-      ],
+      deleteLineString: [`import ${upperCaseName}Page from './containers/${upperCaseName}Page';`],
+    },
+    {
+      filePath: path.appPath,
+      deleteLineString: [`<Route path="/${lowerCaseName}">`],
+      deleteLines: 3,
     },
   ];
   rl.question(`Do you want to delete list files \r\n${allPath.join('\r\n')}? [yes]/no: `, function (answer) {
@@ -111,7 +112,7 @@ function ungenerateContainer(upperCaseName, lowerCaseName) {
 
 function cleanCode(codeInFile) {
   codeInFile.forEach((info) => {
-    deleteLine(info.filePath, info.deleteLineString);
+    deleteLine(info.filePath, info.deleteLineString, info.deleteLines ?? 1);
   });
 }
 

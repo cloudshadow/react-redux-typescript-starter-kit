@@ -61,15 +61,15 @@ function generateContainer(upperCaseName, lowerCaseName) {
     {
       targetText: `Route path="*"`,
       insertText: [
-        `            <Route path="/${lowerCaseName}" />`,
-        `              <${upperCaseName}Page />`,
-        `            </Route>`,
+        `              <Route path="/${lowerCaseName}">`,
+        `                <${upperCaseName}Page />`,
+        `              </Route>`,
       ],
       adjustLine: -1,
     },
     {
       targetText: `import NotfoundPage`,
-      insertText: `import ${upperCaseName}Page from './containers/${upperCaseName}Page';`,
+      insertText: [`import ${upperCaseName}Page from './containers/${upperCaseName}Page';`],
       adjustLine: -1,
     },
   ];
@@ -99,10 +99,10 @@ function generateAction(upperCaseName, lowerCaseName) {
   const targetList = [
     {
       targetText: `const rootAction = {`,
-      insertText: `import { ${lowerCaseName}Actions } from './${lowerCaseName}Actions';`,
+      insertText: [`import { ${lowerCaseName}Actions } from './${lowerCaseName}Actions';`],
       adjustLine: -2,
     },
-    { targetText: `const rootAction = {`, insertText: `  ${lowerCaseName}Actions,`, adjustLine: +1 },
+    { targetText: `const rootAction = {`, insertText: [`  ${lowerCaseName}Actions,`], adjustLine: +1 },
   ];
   insertLine(path.actionIndexPath, targetList);
 }
@@ -114,12 +114,12 @@ function generateApi(upperCaseName, lowerCaseName) {
   const targetList = [
     {
       targetText: `export default {`,
-      insertText: `import * as ${lowerCaseName}Apis from './${lowerCaseName}Apis';`,
+      insertText: [`import * as ${lowerCaseName}Apis from './${lowerCaseName}Apis';`],
       adjustLine: -2,
     },
     {
       targetText: `};`,
-      insertText: `  ${lowerCaseName}Apis,`,
+      insertText: [`  ${lowerCaseName}Apis,`],
       adjustLine: -1,
     },
   ];
@@ -133,12 +133,12 @@ function generateEpic(upperCaseName, lowerCaseName) {
   const targetList = [
     {
       targetText: `const rootEpic = combineEpics(`,
-      insertText: `import * as ${lowerCaseName}Epics from './${lowerCaseName}Epics';`,
+      insertText: [`import * as ${lowerCaseName}Epics from './${lowerCaseName}Epics';`],
       adjustLine: -3,
     },
     {
       targetText: `const rootEpic = combineEpics(`,
-      insertText: `  ...Object.values(${lowerCaseName}Epics),`,
+      insertText: [`  ...Object.values(${lowerCaseName}Epics),`],
       adjustLine: +1,
     },
   ];
@@ -158,12 +158,12 @@ function generateReducer(upperCaseName, lowerCaseName) {
   const targetList = [
     {
       targetText: `export const history: History = createBrowserHistory();`,
-      insertText: `import ${lowerCaseName} from './${lowerCaseName}Reducer';`,
+      insertText: [`import ${lowerCaseName} from './${lowerCaseName}Reducer';`],
       adjustLine: -2,
     },
     {
       targetText: `});`,
-      insertText: `  ${lowerCaseName},`,
+      insertText: [`  ${lowerCaseName},`],
       adjustLine: -2,
     },
   ];
