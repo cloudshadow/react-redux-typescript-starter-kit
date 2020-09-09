@@ -18,12 +18,8 @@ ReactDOM.render(
       <div className="index-container">
         <div className="switch-container">
           <Switch>
-            <Route exact path="/">
-              <HomePage />
-            </Route>
-            <Route path="*">
-              <NotfoundPage />
-            </Route>
+            <Route exact path="/" component={HomePage} />
+            <Route component={NotfoundPage} />
           </Switch>
         </div>
       </div>
