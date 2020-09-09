@@ -1,14 +1,16 @@
 const webpack = require('webpack');
+const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
 const HappyPack = require('happypack');
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
-const smp = new SpeedMeasurePlugin();
+const smp = new SpeedMeasurePlugin(); //not support html-webpack-plugin
+const deps = require('./package.json').dependencies;
 const folderName = new Date().getTime();
 
-module.exports = smp.wrap({
+module.exports = {
   mode: 'production',
   entry: [
     // must be first entry to properly set public path
@@ -36,7 +38,6 @@ module.exports = smp.wrap({
       // chunkFilename: "[id].css"
     }),
     new HappyPack({
-      threads: 3,
       loaders: ['babel-loader'],
     }),
     new HtmlWebpackPlugin({
@@ -93,19 +94,8 @@ module.exports = smp.wrap({
         },
       },
     },
-    minimizer: [
-      // we specify a custom UglifyJsPlugin here to get source maps in production
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        uglifyOptions: {
-          compress: false,
-          ecma: 6,
-          mangle: true,
-        },
-        sourceMap: true,
-      }),
-    ],
+    minimize: true,
+    minimizer: [new TerserPlugin()],
   },
   module: {
     rules: [
@@ -117,31 +107,31 @@ module.exports = smp.wrap({
       },
       {
         test: /\.eot(\?v=\d+.\d+.\d+)?$/,
-        loader: 'file-loader',
+        use: ['file-loader'],
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url-loader?limit=10000&mimetype=application/font-woff',
+        use: ['url-loader?limit=10000&mimetype=application/font-woff'],
       },
       {
         test: /\.[ot]tf(\?v=\d+.\d+.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=application/octet-stream',
+        use: ['url-loader?limit=10000&mimetype=application/octet-stream'],
       },
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=image/svg+xml',
+        use: ['url-loader?limit=10000&mimetype=image/svg+xml'],
       },
       {
         test: /\.(jpe?g|png|gif)$/i,
-        loader: 'file-loader?name=[name].[ext]',
+        use: ['file-loader?name=[name].[ext]'],
       },
       {
         test: /\.ico$/,
-        loader: 'file-loader?name=[name].[ext]',
+        use: ['file-loader?name=[name].[ext]'],
       },
       {
         test: /(\.css|\.scss|\.sass)$/,
-        loaders: [MiniCssExtractPlugin.loader, 'css-loader?sourceMap', 'sass-loader?sourceMap'],
+        use: ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap'],
       },
     ],
   },
@@ -151,4 +141,4 @@ module.exports = smp.wrap({
     },
     extensions: ['.tsx', '.ts', '.js'],
   },
-});
+};
