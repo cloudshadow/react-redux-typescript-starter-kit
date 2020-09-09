@@ -20,7 +20,7 @@
 
 1. git clone https://github.com/cloudshadow/react-redux-typescript-starter-kit.git
 2. npm install
-3. npm start:dev
+3. npm run start:dev
 4. visit http://localhost:4001
 
 ## Useful Command
