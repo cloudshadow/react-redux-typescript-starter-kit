@@ -32,7 +32,7 @@ const insertLine = (filePath, targetList) => {
       fileContentByLines.splice(
         finalTargetInsertList[i].targetLine + 1 + finalTargetInsertList[i].adjustLine + i,
         0,
-        finalTargetInsertList[i].insertText
+        ...finalTargetInsertList[i].insertText
       );
     }
     fs.writeFile(filePath, fileContentByLines.join('\n'), 'utf8', (err) => {

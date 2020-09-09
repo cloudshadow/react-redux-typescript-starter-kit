@@ -20,6 +20,7 @@ import deleteLine from './deleteLine';
 const rl = readline.createInterface(process.stdin, process.stdout);
 const path = {
   rootPath: './src/',
+  appPath: 'src/App.tsx',
   containerPath: './src/containers/',
   componentPath: './src/components/',
   actionPath: './src/actions/',
@@ -83,11 +84,13 @@ function ungenerateContainer(upperCaseName, lowerCaseName) {
       filePath: path.reducerPath + 'index.ts',
       deleteLineString: [`import ${lowerCaseName} from './${lowerCaseName}Reducer';`, `${lowerCaseName},`],
     },
+    // App file
     {
-      filePath: path.rootPath + 'index.tsx',
+      filePath: path.appPath,
       deleteLineString: [
         `import ${upperCaseName}Page from './containers/${upperCaseName}Page';`,
         `component={${upperCaseName}Page}`,
+        3,
       ],
     },
   ];

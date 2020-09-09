@@ -3,7 +3,7 @@ Author: cloudshadow
 */
 import fs from 'fs';
 
-const deleteLine = (filePath, targetLineList) => {
+const deleteLine = (filePath, targetLineList, deleteLines = 1) => {
   const getFileContent = () => {
     return fs.readFileSync(filePath, 'utf8');
   };
@@ -24,7 +24,7 @@ const deleteLine = (filePath, targetLineList) => {
     const fileContentByLines = getFileContent().split('\n');
     const indexArray = getTargetLineIndex(fileContentByLines);
     for (let i = indexArray.length - 1; i >= 0; i--) {
-      fileContentByLines.splice(indexArray[i], 1);
+      fileContentByLines.splice(indexArray[i], deleteLines);
     }
     fs.writeFileSync(filePath, fileContentByLines.join('\n'), 'utf8', (err) => {
       if (err) return console.log(err);

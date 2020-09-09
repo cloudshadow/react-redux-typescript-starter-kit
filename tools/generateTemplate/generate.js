@@ -16,7 +16,7 @@ import fs from 'fs';
 import insertLine from './insertLine';
 
 const path = {
-  indexPath: 'src/index.tsx',
+  appPath: 'src/App.tsx',
   containerPath: './src/containers/',
   componentPath: './src/components/',
   actionPath: './src/actions/',
@@ -59,8 +59,12 @@ function generateContainer(upperCaseName, lowerCaseName) {
   createFile(upperCaseName, lowerCaseName, filePath, tempFilePath);
   const targetList = [
     {
-      targetText: `Route component={NotfoundPage}`,
-      insertText: `            <Route path="/${lowerCaseName}" component={${upperCaseName}Page} />`,
+      targetText: `Route path="*"`,
+      insertText: [
+        `            <Route path="/${lowerCaseName}" />`,
+        `              <${upperCaseName}Page />`,
+        `            </Route>`,
+      ],
       adjustLine: -1,
     },
     {
@@ -69,7 +73,7 @@ function generateContainer(upperCaseName, lowerCaseName) {
       adjustLine: -1,
     },
   ];
-  insertLine(path.indexPath, targetList);
+  insertLine(path.appPath, targetList);
 }
 
 function generateComponent(upperCaseName, lowerCaseName, subPath) {
