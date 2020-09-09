@@ -1,15 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { ActionType } from 'typesafe-actions';
 import rootAction from '@/actions';
 import HomeComponent from '@/components/Home/HomeComponent';
-import { RootState } from '@/types/GlobalTypes';
+import { RootAction, RootState } from '@/types/GlobalTypes';
 import { IHomeState } from '@/types/HomeTypes';
 
-type RootActions = ActionType<typeof rootAction>;
 interface IHomeProps {
-  getThunkTitle: () => void;
   fetchTitleEpicRequest: () => void;
   fetchTitleThunk: () => void;
   homeState: IHomeState;
@@ -35,7 +32,7 @@ interface IMapDispatchToProps {
   fetchTitleThunk: (args: IHomeState) => void;
   fetchTitleEpicRequest: () => void;
 }
-const mapDispatchToProps = (dispatch: Dispatch<RootActions>): IMapDispatchToProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<RootAction>): IMapDispatchToProps => ({
   fetchTitleThunk: (args) => dispatch(rootAction.homeActions.fetchTitleThunk(args)),
   fetchTitleEpicRequest: () => dispatch(rootAction.homeActions.fetchTitleEpicAsync.request()),
 });
