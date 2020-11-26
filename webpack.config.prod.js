@@ -102,7 +102,7 @@ module.exports = {
       {
         test: /\.(ts|js)x?$/,
         // loader: 'babel-loader',
-        use: ['cache-loader', 'happypack/loader'],
+        use: ['happypack/loader'],
         exclude: /node_modules/,
       },
       {

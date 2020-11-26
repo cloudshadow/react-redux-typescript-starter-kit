@@ -3,7 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const path = require('path');
 const HappyPack = require('happypack');
-const DashboardPlugin = require('webpack-dashboard/plugin');
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin'); //not support html-webpack-plugin
 const smp = new SpeedMeasurePlugin(); //not support html-webpack-plugin
 const deps = require('./package.json').dependencies;
@@ -12,12 +11,15 @@ module.exports = {
   mode: 'development',
   entry: './src/index.tsx',
   devtool: 'inline-source-map',
+  cache: { 
+    type: 'memory' 
+  },
   module: {
     rules: [
       {
         test: /\.(ts|js)x?$/,
         // loader: 'babel-loader',
-        use: ['cache-loader', 'happypack/loader'],
+        use: ['happypack/loader'],
         exclude: /node_modules/,
       },
       {
@@ -77,7 +79,6 @@ module.exports = {
     new webpack.EnvironmentPlugin({
       REACT_APP_ENV: 'development',
     }),
-    new DashboardPlugin(),
     new ModuleFederationPlugin({
       name: 'react-redux-typescript-starter-kit',
       remotes: {
