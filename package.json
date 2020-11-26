@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.7.7",
-    "@material-ui/core": "^4.11.0",
     "@redux-dynostore/core": "^3.1.0",
     "@redux-dynostore/react-redux": "^3.1.0",
     "@redux-dynostore/react-redux-subspace": "^3.1.0",

@@ -17,7 +17,7 @@ describe('home epic test', () => {
     test('should return correct output observable (success) after getTitleEpic action observable', () => {
       testScheduler.run(({ hot, cold, expectObservable }) => {
         const response = {
-          data: { id: 1, title: 'title1', epicTitle: 'epicTitle2' },
+          data: { id: 1, title: 'title1', epicTitle: 'epicTitle2', loading:false, error: false },
           status: 200,
           statusText: 'OK',
           config: {},

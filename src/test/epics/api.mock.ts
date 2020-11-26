@@ -12,5 +12,5 @@ export const dependencies: jest.Mocked<Services> = {
 
 export const initialState: RootState = {
   router: {} as RouterState,
-  homeState: defaultHomeState
+  home: defaultHomeState
 };
