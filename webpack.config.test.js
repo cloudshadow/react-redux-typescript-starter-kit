@@ -131,7 +131,7 @@ module.exports = {
       },
       {
         test: /(\.css|\.scss|\.sass)$/,
-        use: ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap'],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
   },

@@ -11,8 +11,8 @@ module.exports = {
   mode: 'development',
   entry: './src/index.tsx',
   devtool: 'inline-source-map',
-  cache: { 
-    type: 'memory' 
+  cache: {
+    type: 'memory',
   },
   module: {
     rules: [
@@ -48,7 +48,7 @@ module.exports = {
       },
       {
         test: /(\.css|\.scss|\.sass)$/,
-        use: ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap'],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
   },
