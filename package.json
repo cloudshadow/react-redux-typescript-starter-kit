@@ -1,6 +1,6 @@
 {
   "name": "react-redux-typescript-starter-kit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "start:dev": "webpack serve --hot --color --config ./webpack.config.dev.js",
@@ -13,7 +13,8 @@
     "remove-dist-stable": "rimraf ./dist-stable",
     "generate": "babel-node tools/generateTemplate/generate.js",
     "ungenerate": "babel-node tools/generateTemplate/ungenerate.js",
-    "test": "jest --no-cache --runInBand --passWithNoTests"
+    "test": "jest --no-cache --runInBand --passWithNoTests",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@babel/runtime": "^7.13.10",
@@ -79,27 +80,15 @@
     "webpack-cli": "^4.2.0",
     "webpack-dev-server": "^3.11.2"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "yarn test"
-    }
-  },
   "lint-staged": {
-    "linters": {
-      "*.{ts,tsx}": [
-        "npm run eslint",
-        "prettier --write",
-        "git add"
-      ],
-      "*.json": [
-        "prettier --write",
-        "git add"
-      ]
-    },
-    "ignore": [
-      "**/dist/*.min.js",
-      "node_modules"
+    "*.{ts,tsx}": [
+      "npm run eslint",
+      "prettier --write",
+      "git add"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add"
     ]
   },
   "browserslist": [
