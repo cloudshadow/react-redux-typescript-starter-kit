@@ -1,6 +1,6 @@
 import { Epic } from 'redux-observable';
 import { from, of } from 'rxjs';
-import { mergeMap, filter, switchMap, catchError } from 'rxjs/operators';
+import { mergeMap, filter, switchMap, catchError, concatWith } from 'rxjs/operators';
 import { isActionOf } from 'typesafe-actions';
 import { RootAction, RootState, Services } from '@/types/GlobalTypes';
 import rootAction from '@/actions';
@@ -11,12 +11,15 @@ export const getTitleEpic: Epic<RootAction, RootAction, RootState, Services> = (
     switchMap(() =>
       from(api.homeApis.getTitleObservable()).pipe(
         // mergeMap((payload) =>
-        //   concat(
-        //     of(
-        //       rootAction.homeActions.fetchTitleEpicAsync.success(payload.data),
+        //   of(
+        //     rootAction.homeActions.fetchTitleEpicAsync.success(payload.data),
+        //   ).pipe(
+        //     concatWith(
+        //       // do some action after success
+        //       of(rootAction.authActions.saveToken(payload.data)),
         //     )
-        //     // do some action after success
-        //     // of(rootAction.homeActions.otherAction.request(payload))
+        //   ).pipe(
+        //     tap(action => localStorage.setItem('access_token', action.payload.accessToken))
         //   )
         // ),
         mergeMap((payload) =>

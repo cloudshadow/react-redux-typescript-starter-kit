@@ -6,10 +6,12 @@ const HappyPack = require('happypack');
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin'); //not support html-webpack-plugin
 const smp = new SpeedMeasurePlugin(); //not support html-webpack-plugin
 const deps = require('./package.json').dependencies;
+const mode = 'development';
 
 module.exports = {
-  mode: 'development',
+  mode,
   entry: './src/index.tsx',
+  target: mode === 'development' ? 'web' : 'browserslist',
   devtool: 'inline-source-map',
   cache: {
     type: 'memory',
@@ -109,7 +111,7 @@ module.exports = {
     inline: true,
     compress: true,
     host: '0.0.0.0',
-    port: 4001,
+    port: 3000,
     progress: true,
     open: true,
     // hot: true, //see more https://github.com/webpack/webpack/issues/1151
