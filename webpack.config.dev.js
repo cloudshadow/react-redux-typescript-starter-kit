@@ -3,8 +3,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const path = require('path');
 const HappyPack = require('happypack');
-const SpeedMeasurePlugin = require('speed-measure-webpack-plugin'); //not support html-webpack-plugin
-const smp = new SpeedMeasurePlugin(); //not support html-webpack-plugin
+const moduleFederationConfig = require('./webpack.module.federation.config');
+// const SpeedMeasurePlugin = require('speed-measure-webpack-plugin'); //not support html-webpack-plugin
+// const smp = new SpeedMeasurePlugin(); //not support html-webpack-plugin
 const deps = require('./package.json').dependencies;
 const mode = 'development';
 
@@ -81,22 +82,10 @@ module.exports = {
     new webpack.EnvironmentPlugin({
       REACT_APP_ENV: 'development',
     }),
-    new ModuleFederationPlugin({
-      name: 'react-redux-typescript-starter-kit',
-      remotes: {
-        app_two: `app_two@http://0.0.0.0:4002/remoteEntry.js`, // set remote app name&link
-      },
-      shared: {
-        ...deps,
-        react: {
-          import: 'react',
-          shareKey: 'react',
-          shareScope: 'default',
-          singleton: true, // only a single version of the shared module is allowed
-          requiredVersion: deps.react,
-        },
-      },
-    }),
+    new ModuleFederationPlugin(
+      // moduleFederationConfig(deps).clientConfig
+      moduleFederationConfig(deps).hostConfig
+    ),
   ],
   // When importing a module whose path matches one of the following, just
   // assume a corresponding global variable exists and use that instead.
