@@ -97,15 +97,25 @@ module.exports = {
   //   "react-dom": "ReactDOM"
   // },
   devServer: {
-    contentBase: path.join(__dirname, 'src'),
-    inline: true,
+    static: {
+      directory: path.join(__dirname, 'src'),
+    },
     compress: true,
+    https: false,
     host: '0.0.0.0',
-    port: 3000,
-    progress: true,
+    port: 9000,
+    client: {
+      logging: 'info',
+      progress: true,
+    },
+    // headers: [
+    //   {
+    //     key: 'X-Custom',
+    //     value: 'foo',
+    //   },
+    // ],
     open: true,
-    // hot: true, //see more https://github.com/webpack/webpack/issues/1151
-    watchContentBase: true,
+    hot: true,
     historyApiFallback: true,
   },
 };
