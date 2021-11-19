@@ -5,7 +5,7 @@ import TemplateComponent from '@tempPath/components/Template/TemplateComponent';
 import { RootState } from '@tempPath/types/GlobalTypes';
 import { ITemplateState } from '@tempPath/types/TemplateTypes';
 
-const TemplatePage = () => {
+const TemplatePage: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const templateState = useSelector<RootState, ITemplateState>((state) => state.template, shallowEqual);
 

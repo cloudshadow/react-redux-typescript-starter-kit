@@ -1,13 +1,15 @@
 <p align="center"><img src="https://user-images.githubusercontent.com/1182967/34776160-d0cdee06-f650-11e7-8119-b42c0c324e8f.png"/></p>
 
-# react-redux-typescript-starter-kit
+# react-redux-typescript-starter-kit 
 
 > Simple [React](http://facebook.github.io/react/index.html) [Redux](https://redux.js.org/) [Typescript](https://www.typescriptlang.org/) Starter Kit for create application.
 
+# TODO
+1. Add setting for Module Federation
 ## Libraries
 
-- [Webpack](https://webpack.js.org/) v5.0.0-beta.29
-- [React](https://reactjs.org/) v16.13+
+- [Webpack](https://webpack.js.org/) v5.44.0
+- [React](https://reactjs.org/) v17.0.2+
 - [TypeScript](https://www.typescriptlang.org/)
 - [ImmerJs](https://immerjs.github.io/immer/)
 - [React Router](https://reacttraining.com/react-router/)
@@ -21,9 +23,9 @@
 1. git clone https://github.com/cloudshadow/react-redux-typescript-starter-kit.git
 2. npm install
 3. npm run start:dev
-4. visit http://localhost:4001
+4. visit http://localhost:3000
 
-## Useful Command
+## Useful Command 
 
 1. npm run start:prod (build production package)
 2. npm run start:test (build stable package)
@@ -34,6 +36,6 @@
 5. npm run generate container \${container name}
    > Generate container, component, action, reducer
 
-## License
+## License 
 
 [MIT License](LICENSE)

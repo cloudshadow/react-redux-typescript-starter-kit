@@ -81,6 +81,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.EnvironmentPlugin({
       REACT_APP_ENV: 'development',
+      MODULE_FEDERATION_MODE: 'client'
     }),
     new ModuleFederationPlugin(
       // moduleFederationConfig(deps).clientConfig
