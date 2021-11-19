@@ -62,7 +62,7 @@
     "happypack": "^5.0.1",
     "html-webpack-plugin": "^5.3.2",
     "husky": "^7.0.1",
-    "immer": "^9.0.5",
+    "immer": "^9.0.6",
     "jest": "^27.0.6",
     "json-loader": "^0.5.7",
     "lint-staged": "^11.0.0",
