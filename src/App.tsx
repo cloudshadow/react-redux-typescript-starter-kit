@@ -1,32 +1,26 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
-import { Route, Switch } from 'react-router';
-import { ConnectedRouter } from 'connected-react-router';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './containers/HomePage';
 import NotfoundPage from './containers/NotfoundPage';
 import configureStore from './stores/configureStore';
-import { history } from '@/reducers';
 
 const store = configureStore();
+// const OrdersPage = React.lazy(() => import('@/pages/orders'));
+// const OrdersMobilePage = React.lazy(() => import('@/pages/orders/mobile'));
 const App: React.FunctionComponent = () => {
   return (
     <Provider store={store}>
-      {/* ConnectedRouter will use the store from Provider automatically */}
-      {/* use env process.env.NODE_ENV or process.env.REACT_APP_ENV*/}
-      <ConnectedRouter history={history}>
-        <div className="index-container">
-          <div className="switch-container">
-            <Switch>
-              <Route exact path="/">
-                <HomePage />
-              </Route>
-              <Route path="*">
-                <NotfoundPage />
-              </Route>
-            </Switch>
-          </div>
-        </div>
-      </ConnectedRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />}>
+            {/* <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="dashboard" element={<Dashboard />} /> */}
+            <Route path="*" element={<NotfoundPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </Provider>
   );
 };

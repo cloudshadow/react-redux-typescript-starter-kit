@@ -1,9 +1,8 @@
-import { createStore, compose, applyMiddleware } from 'redux';
+// import { createStore, configureStore, compose, applyMiddleware } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import { createEpicMiddleware } from 'redux-observable';
 import thunkMiddleware from 'redux-thunk';
-// import { createBrowserHistory, History } from 'history';
-import rootReducer, { history } from '@/reducers';
-import { routerMiddleware } from 'connected-react-router';
+import rootReducer from '@/reducers';
 import rootEpic from '@/epics';
 import services from '@/apis';
 import { RootAction, RootState, Services } from '@/types/GlobalTypes';
@@ -12,48 +11,45 @@ import { RootAction, RootState, Services } from '@/types/GlobalTypes';
 const epicMiddleware = createEpicMiddleware<RootAction, RootAction, RootState, Services>({
   dependencies: services,
 });
-function configureStoreProd(preloadedState?: any) {
+function configureStoreProd() {
   const middlewares = [
     // Add other middleware on this line...
     // thunk middleware can also accept an extra argument to be passed to each thunk action
     // https://github.com/gaearon/redux-thunk#injecting-a-custom-argument
     thunkMiddleware,
     epicMiddleware,
-    routerMiddleware(history),
   ];
 
-  // const store = createStore(rootReducer(history), compose(applyMiddleware(...middlewares)));
-  const store = createStore(rootReducer, compose(applyMiddleware(...middlewares)));
+  const store = configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(middlewares),
+  });
   epicMiddleware.run(rootEpic);
   return store;
 }
 
-function configureStoreDev(preloadedState?: any) {
+function configureStoreDev() {
   const middlewares = [
     // Add other middleware on this line...
     // thunk middleware can also accept an extra argument to be passed to each thunk action
     // https://github.com/gaearon/redux-thunk#injecting-a-custom-argument
     thunkMiddleware,
     epicMiddleware,
-    routerMiddleware(history),
   ];
 
-  const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // add support for Redux dev tools
-  // const store = createStore(rootReducer(history), composeEnhancers(applyMiddleware(...middlewares)));
-  const store = createStore(rootReducer, composeEnhancers(applyMiddleware(...middlewares)));
+  const store = configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(middlewares),
+  });
 
-  if (module.hot) {
-    // Enable Webpack hot module replacement for reducers
-    module.hot.accept('@/reducers', () => {
-      const nextReducer = require('@/reducers').default; // eslint-disable-line global-require
-      store.replaceReducer(nextReducer);
-    });
+  if (process.env.NODE_ENV !== 'production' && module.hot) {
+    module.hot.accept('@/reducers', () => store.replaceReducer(rootReducer));
   }
   epicMiddleware.run(rootEpic);
 
   return store;
 }
 
-const configureStore = process.env.NODE_ENV === 'production' ? configureStoreProd : configureStoreDev;
+const configuredStore = process.env.NODE_ENV === 'production' ? configureStoreProd : configureStoreDev;
 
-export default configureStore;
+export default configuredStore;
