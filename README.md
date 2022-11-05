@@ -9,10 +9,10 @@
 ## Libraries
 
 - [Webpack](https://webpack.js.org/) v5.44.0
-- [React](https://reactjs.org/) v17.0.2+
+- [React](https://reactjs.org/) v18.0.2
 - [TypeScript](https://www.typescriptlang.org/)
 - [ImmerJs](https://immerjs.github.io/immer/)
-- [React Router](https://reacttraining.com/react-router/)
+- [React Router](https://reacttraining.com/react-router/) v6.4.3
 - [Redux](https://redux.js.org/)
 - [Redux-Observable](https://redux-observable.js.org/)
 - [Axios](https://github.com/axios/axios)
