@@ -26,23 +26,7 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.eot(\?v=\d+.\d+.\d+)?$/,
-        use: ['file-loader'],
-      },
-      {
-        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: ['url-loader?limit=10000&mimetype=application/font-woff'],
-      },
-      {
-        test: /\.[ot]tf(\?v=\d+.\d+.\d+)?$/,
-        use: ['url-loader?limit=10000&mimetype=application/octet-stream'],
-      },
-      {
-        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        use: ['url-loader?limit=10000&mimetype=image/svg+xml'],
-      },
-      {
-        test: /\.(jpe?g|png|gif)$/i,
+        test: /\.(jpe?g|png|gif|svg)$/i,
         use: ['file-loader?name=[name].[ext]'],
       },
       {
@@ -50,8 +34,8 @@ module.exports = {
         use: ['file-loader?name=[name].[ext]'],
       },
       {
-        test: /(\.css|\.scss|\.sass)$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        test: /(\.css)$/,
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
